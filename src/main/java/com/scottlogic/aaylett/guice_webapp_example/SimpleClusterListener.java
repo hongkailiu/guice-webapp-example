@@ -44,11 +44,11 @@ public class SimpleClusterListener extends UntypedActor {
     } else if (message instanceof UnreachableMember) {
       UnreachableMember mUnreachable = (UnreachableMember) message;
       log.info("Member detected as unreachable: {}", mUnreachable.member());
-
+      myService.remove(mUnreachable.member());
     } else if (message instanceof MemberRemoved) {
       MemberRemoved mRemoved = (MemberRemoved) message;
       log.info("Member is Removed: {}", mRemoved.member());
-
+      myService.remove(mRemoved.member());
     } else if (message instanceof MemberEvent) {
       // ignore
 

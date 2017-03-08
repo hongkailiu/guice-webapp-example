@@ -1,16 +1,15 @@
 package com.scottlogic.aaylett.guice_webapp_example;
 
 import com.google.gson.Gson;
-import com.scottlogic.aaylett.guice_webapp_example.Node.NodeFactory;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
 @Singleton
 public class TestServlet extends HttpServlet {
@@ -27,16 +26,10 @@ public class TestServlet extends HttpServlet {
   @Inject
   MyService myService;
 
-  @Inject
-  NodeFactory nodeFactory;
-
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    if (myService.getNodes().isEmpty()) {
-      myService.add(nodeFactory.create("aaa"));
-    }
-    String body = new Gson().toJson(myService.getNodes());
+    String body = new Gson().toJson(myService.getMembers());
     resp.getOutputStream().print(body);
   }
 }
