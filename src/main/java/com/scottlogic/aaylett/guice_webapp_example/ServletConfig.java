@@ -20,15 +20,7 @@ public class ServletConfig extends GuiceServletContextListener {
 
         serve("/").with(TestServlet.class);
 
-        bind(String.class).toInstance("Hello, World!");
-        bind(MyService.class).in(Scopes.SINGLETON);
-        System.out.println("1==========");
-        bind(ActorSystem.class).toProvider(ActorSystemProvider.class)
-            .asEagerSingleton();
-        System.out.println("2==========");
-        bind(ActorRef.class).toProvider(ActorRefProvider.class)
-            .asEagerSingleton();
-        System.out.println("3==========");
+        install(new MyModule());
 
       }
     });

@@ -24,11 +24,17 @@ public class TestServlet extends HttpServlet {
   }
 
   @Inject
-  MyService myService;
+  private MyService myService;
+
+  @Inject
+  private WorkerService workerService;
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    System.out.println("111");
+    workerService.send();
+    System.out.println("222");
     String body = new Gson().toJson(myService.getMembers());
     resp.getOutputStream().print(body);
   }
